@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブックマーク管理</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <button id="back-button" class="header-button">戻る</button>
+        <div class="header-center">
+            <label for="order-select">順序:</label>
+            <select id="order-select">
+                <option value="default">元の順序</option>
+                <option value="asc">昇順</option>
+                <option value="desc">降順</option>
+                <option value="random">ランダム</option>
+            </select>
+        </div>
+        <button id="hamburger-menu-button" class="header-button">☰</button>
+    </header>
+
+    <nav id="hamburger-menu">
+        <input type="file" id="bookmark-file-input" accept=".html" style="display: none;">
+        <button id="import-bookmarks-button">ブックマークをインポート</button>
+        <button id="toggle-group-button">サイトが同じなら、同じフォルダにする</button>
+        <button id="delete-broken-links-button">リンク切れを削除</button>
+    </nav>
+
+    <main id="bookmark-list">
+        <!-- ブックマークとフォルダはここに動的に追加されます -->
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
