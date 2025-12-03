@@ -1,155 +1,188 @@
 :root {
-    --primary-bg: #f0f2f5;
-    --secondary-bg: #ffffff;
-    --header-bg: #ffffff;
-    --text-color: #050505;
-    --subtle-text-color: #65676b;
-    --accent-color: #1877f2;
-    --border-color: #ced0d4;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --header-height: 50px;
+    --sidebar-width: 280px;
+    --border-color: #ddd;
+    --background-color: #f4f4f4;
+    --item-background-color: #fff;
+    --item-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--primary-bg);
-    color: var(--text-color);
-    margin: 0;
-    padding: 60px 0 0; /* Header height */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    padding-top: var(--header-height);
+    transition: padding-right 0.3s ease-in-out; /* Add transition for smooth movement */
+}
+
+body.sidebar-open {
+    padding-right: var(--sidebar-width);
 }
 
 header {
-    background-color: var(--header-bg);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px var(--shadow-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    height: 60px;
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: var(--header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border-color);
     z-index: 100;
 }
 
-.header-center {
+header button, header select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+header button:hover, header select:hover {
+    background-color: #f0f0f0;
+}
+
+#back-btn {
+    font-weight: bold;
+}
+
+#menu-btn {
+    font-size: 1.2rem;
+}
+
+.sort-container {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.header-button,
-#hamburger-menu button,
-#order-select {
-    background-color: transparent;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.header-button:hover,
-#hamburger-menu button:hover,
-#order-select:hover {
-    background-color: var(--primary-bg);
-}
-
-#hamburger-menu-button {
-    font-size: 24px;
-}
-
-#back-button:disabled {
-    color: var(--subtle-text-color);
-    cursor: not-allowed;
-    background-color: transparent;
-}
-
-
-#hamburger-menu {
-    display: none; /* Initially hidden */
-    flex-direction: column;
-    gap: 8px;
-    background-color: var(--secondary-bg);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 4px 6px var(--shadow-color);
-    padding: 16px;
-    position: fixed;
-    top: 60px; /* Below header */
-    left: 0;
-    right: 0;
-    z-index: 99;
-}
-
-#hamburger-menu.open {
-    display: flex; /* Show menu */
-}
-
-#hamburger-menu button {
-    width: 100%;
-    text-align: left;
-}
-
-main {
-    padding: 20px;
-}
-
-.item-container {
+#bookmarks-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
+    padding: 20px;
+    transition: margin-right 0.3s ease-in-out; /* Add transition for smooth movement */
 }
 
-.bookmark-item, .bookmark-folder {
-    background-color: var(--secondary-bg);
+body.sidebar-open #bookmarks-container {
+    margin-right: var(--sidebar-width);
+}
+
+.bookmark-item, .folder-item {
+    background-color: var(--item-background-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    box-shadow: 0 1px 2px var(--shadow-color);
-    overflow: hidden;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--item-shadow);
     cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    text-align: center;
 }
 
-.bookmark-item:hover, .bookmark-folder:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px var(--shadow-color);
+.bookmark-item:hover, .folder-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.bookmark-thumbnail {
+.item-thumbnail {
+    height: 120px;
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem; /* Larger for better visibility of emoji/icon */
+    border-bottom: 1px solid var(--border-color); /* Separator from title */
+    margin-bottom: 5px; /* Space between thumbnail and title */
+}
+
+.item-thumbnail img {
     width: 100%;
-    height: 96px;
+    height: 100%;
     object-fit: cover;
-    background-color: #ADD8E6; /* Light blue, similar to placeholder */
 }
 
-.bookmark-item h3, .bookmark-folder h3 {
-    font-size: 14px;
-    margin: 0;
-    padding: 12px;
+.item-title {
+    padding: 5px 10px 10px; /* Adjust padding for better spacing */
+    font-size: 0.9rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
 }
 
-.bookmark-folder .folder-icon {
-    display: block;
-    font-size: 64px;
-    text-align: center;
-    padding: 16px 0;
-    line-height: 1.2;
+/* Add some padding at the bottom of the main container for better scrolling experience */
+#bookmarks-container {
+    padding-bottom: 80px; /* Adjust as needed for a faux-footer */
 }
 
-.folder-icon {
-    margin-right: 8px;
-    font-size: 1.2em;
+#sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--sidebar-width);
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 200;
+    padding-top: calc(var(--header-height) + 10px); /* Adjust padding to make space for close button */
 }
 
+#sidebar.open {
+    transform: translateX(0);
+}
 
-.folder-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
+#close-sidebar-btn {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    z-index: 201; /* Ensure it's above sidebar content */
+    padding: 0 5px;
+}
+
+#close-sidebar-btn:hover {
+    color: #000;
+}
+
+.sidebar-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Ensure content starts below the close button if padding-top is not enough */
+    margin-top: 30px; 
+}
+
+.sidebar-content button {
+    width: 100%;
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.sidebar-content button:hover {
+    background-color: #e9e9e9;
+}
+
+.sidebar-content hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 5px 0;
 }
