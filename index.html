@@ -8,29 +8,34 @@
 </head>
 <body>
     <header>
-        <button id="back-button" class="header-button">戻る</button>
-        <div class="header-center">
-            <label for="order-select">順序:</label>
-            <select id="order-select">
-                <option value="default">元の順序</option>
+        <button id="back-btn" title="戻る">◀</button>
+        <div class="sort-container">
+            <label for="sort-order">順序:</label>
+            <select id="sort-order">
+                <option value="default">元に戻す</option>
                 <option value="asc">昇順</option>
                 <option value="desc">降順</option>
-                <option value="random">ランダム</option>
             </select>
         </div>
-        <button id="hamburger-menu-button" class="header-button">☰</button>
+        <button id="random-sort-btn">順序をランダムにする</button>
+        <button id="menu-btn" title="メニュー">☰</button>
     </header>
 
-    <nav id="hamburger-menu">
-        <input type="file" id="bookmark-file-input" accept=".html" style="display: none;">
-        <button id="import-bookmarks-button">ブックマークをインポート</button>
-        <button id="toggle-group-button">サイトが同じなら、同じフォルダにする</button>
-        <button id="delete-broken-links-button">リンク切れを削除</button>
-    </nav>
+    <main id="bookmarks-container"></main>
 
-    <main id="bookmark-list">
-        <!-- ブックマークとフォルダはここに動的に追加されます -->
-    </main>
+    <nav id="sidebar">
+        <button id="close-sidebar-btn" title="メニューを閉じる">✕</button>
+        <div class="sidebar-content">
+            <button id="import-btn">ブックマークをインポート</button>
+            <input type="file" id="import-file" accept=".html" hidden>
+            <hr>
+            <button id="group-by-site-btn">サイトが同じなら、同じフォルダにする</button>
+            <button id="reset-structure-btn" style="display: none;">元のフォルダ構成に戻す</button>
+            <hr>
+            <button id="delete-dead-links-btn">リンク切れを削除</button>
+            <button id="delete-duplicates-btn">リンクの重複を削除</button>
+        </div>
+    </nav>
 
     <script src="script.js"></script>
 </body>
